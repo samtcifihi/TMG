@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/samtcifihi/TMG/src/goban"
+	"github.com/samtcifihi/TMG/src/goban"
 	_ "local/userio"
 )
 
@@ -27,6 +27,13 @@ func main() {
 	// fmt.Println("2: Size = ", testPyr2.Size())
 	// fmt.Println("3: Color = ", testPyr3.Color())
 	// fmt.Println("3: Size = ", testPyr3.Size())
+
+	testGoban := goban.NewSq(9, 9)
+
+	fmt.Println("Size: ", testGoban.Height(), "x", testGoban.Width())
+	// fmt.Println("2-2 point: ", testGoban.GetPoint(1, 1))
+
+	testGoban.Print()
 
 	fmt.Println("Thank you for playing TMG.")
 }

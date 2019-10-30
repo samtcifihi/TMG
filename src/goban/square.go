@@ -1,6 +1,8 @@
 package goban
 
-import ()
+import (
+	"fmt"
+)
 
 // sq represents a rectangular goban
 type sq struct {
@@ -12,15 +14,23 @@ type sq struct {
 	board [][]int8
 }
 
-// NewSq adds a new pyramid to the PyrPile
+// NewSq constructs an new sq
 func NewSq(i uint, j uint) *sq {
 	newSq := new(sq)
 
-	m, n := i, j
-	for ; m > 0; m-- {
-		for ; n > 0; n-- {
-			newSq.board[m-1][n-1] = 0
-		}
+	i, j = i-1, j-1
+
+	row := []int8{}
+	for n := 0; uint(n) <= j; n++ {
+		row = append(row, 0)
+	}
+
+	for m := 0; uint(m) <= i; m++ {
+		// for n := 0; uint(n) <= j; n++ {
+		// newSq.board[m] = append(newSq.board[m], 0)
+		// }
+
+		newSq.board = append(newSq.board, row)
 	}
 
 	return newSq
@@ -48,6 +58,16 @@ func (s *sq) ClearColor(color int8) {
 // Size returns the height and width of the goban.sq respectively
 func (s *sq) Size() (uint, uint) {
 	return uint(len(s.board)), uint(len(s.board[0]))
+}
+
+// Height gives Height
+func (s *sq) Height() uint {
+	return uint(len(s.board))
+}
+
+// Width gives width
+func (s *sq) Width() uint {
+	return uint(len(s.board[0]))
 }
 
 // Row returns the specified row from the sq
@@ -145,4 +165,11 @@ func adjColors(s *sq, i uint, j uint, currentColor int8, targetColor int8) bool 
 	}
 
 	return foundColor
+}
+
+// Print outputs the current game state
+func (s *sq) Print() {
+	for i := range s.board {
+		fmt.Println(s.Row(uint(i)))
+	}
 }
